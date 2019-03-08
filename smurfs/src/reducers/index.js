@@ -25,8 +25,10 @@
 import {
   FETCHING_SMURFS,
   FETCHED_SMURFS,
-  UPDATE_SMURF,
-  DELETE_SMURF
+  ADDING_SMURF,
+  UPDATING_SMURF,
+  DELETING_SMURF,
+  FETCH_ERR
 } from "../actions";
 
 const initialState = {
@@ -41,35 +43,18 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_SMURFS:
-      return { ...state, fetchSmurfs: true };
+      return { ...state, fetchingSmurfs: true };
     case FETCHED_SMURFS:
-      return { ...state, fetchSmurfs: false, smurfs: [...action.payload] };
-    case UPDATE_SMURF:
-      let updated, i;
-      state.smurfs.forEach((smurf, index) => {
-        // Could pass the index through the actions but this feels safer
-        if (action.payload.id === smurf.id) {
-          // Match action's id to a smurf then update it
-          updated = action.payload;
-          i = index;
-        }
-      });
-      return {
-        ...state,
-        smurfs: [
-          ...state.smurfs.slice(0, i),
-          updated,
-          ...state.smurfs.slice(i + 1)
-        ]
-      };
-    case DELETE_SMURF:
-      // Doing it the other, potentially riskier way here :D
-      return {
-        ...state,
-        smurfs: [
-          ...state.smurfs.slice(0, action.payload),
-          ...state.smurfs.slice(action.payload + 1)
-        ]
-      };
+      return { ...state, fetchingSmurfs: false, smurfs: [...action.payload] };
+    case ADDING_SMURF:
+      return { ...state, addingSmurf: true };
+    case UPDATING_SMURF:
+      return { ...state, updatingSmurf: true };
+    case DELETING_SMURF:
+      return { ...state, deletingSmurf: true };
+    case FETCH_ERR:
+      return { ...state, error: action.payload };
+    default:
+      return state;
   }
 };
