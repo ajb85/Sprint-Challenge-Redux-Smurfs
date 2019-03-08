@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { fetchSmurfs, addSmurf, updateSmurf, deleteSmurf } from "../actions";
+import { fetchSmurfs, updateSmurf, deleteSmurf } from "../actions";
+import AddSmurf from "./AddSmurf";
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own.
@@ -17,6 +18,7 @@ function App(props) {
 
   return (
     <div className="App">
+      <AddSmurf />
       {props.smurfs.map(smurf => (
         <div>
           <h2>
@@ -29,18 +31,19 @@ function App(props) {
   );
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  fetchingSmurfs: state.fetchingSmurfs,
+  updatingSmurf: state.updatingSmurf,
+  deletingSmurf: state.deletingSmurf,
+  error: state.error
+});
 
 /*
-smurfs: state.smurfs,
-fetchingSmurfs: state.fetchingSmurfs,
-addingSmurf: state.addingSmurf,
-updatingSmurf: state.updatingSmurf,
-deletingSmurf: state.deletingSmurf,
-error: state.error
+
 */
 
 export default connect(
   mapStateToProps,
-  { fetchSmurfs, addSmurf, updateSmurf, deleteSmurf }
+  { fetchSmurfs, updateSmurf, deleteSmurf }
 )(App);
