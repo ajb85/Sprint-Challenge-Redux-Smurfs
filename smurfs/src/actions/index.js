@@ -89,16 +89,16 @@ export const updateSmurf = smurf => dispatch => {
     });
 };
 
-export const deleteSmurf = smurf => dispatch => {
+export const deleteSmurf = id => dispatch => {
   // Update isFetching state
   dispatch({ type: DELETING_SMURF });
 
   // Get data from server to save to state
-  const url = `http://localhost:3333/smurfs/${smurf.id}`;
+  const url = `http://localhost:3333/smurfs/${id}`;
 
   // confirm all data needed is present before sending request
   axios
-    .delete(url)
+    .delete(url, id)
     .then(res => {
       // Dispatch smurf array to save in state
       dispatch({ type: FETCHED_SMURFS, payload: res.data });

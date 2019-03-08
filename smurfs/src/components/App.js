@@ -24,6 +24,9 @@ function App(props) {
             {smurf.name}, {smurf.age}
           </h2>
           <p>{smurf.height}</p>
+          <button onClick={() => props.deleteSmurf(smurf.id)} type="button">
+            Delete
+          </button>
         </div>
       ))}
     </div>
