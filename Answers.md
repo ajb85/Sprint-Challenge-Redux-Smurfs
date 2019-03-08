@@ -1,6 +1,6 @@
-1.  Name 3 JavaScript Array/Object Methods that do not produce side-effects? Which method do we use to create a new object while extending the properties of another object?
-1.  Describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
-1.  What is the difference between Application state and Component state? When would be a good time to use one over the other?
-1.  What is middleware?
-1.  Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
-1.  Which `react-redux` method links up our `components` with our `redux store`?
+1. Name 3 JavaScript Array/Object Methods that do not produce side-effects? Which method do we use to create a new object while extending the properties of another object? ANSWER: Array.filter(), _Object.assign({}, obj)_, Array.join()
+2. Describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application? ANSWER: actions are delivered to the reducer and inform the reducer how to modify the state. Reducers perform an operation on the state. The store is the application's state--that is, where the state lives. Since the state only lives here, it is the SSoT
+3. What is the difference between Application state and Component state? When would be a good time to use one over the other? ANSWER: Application state is a global entity while component state is singular to the one component. Global state allows for much easier management of state data, creates a SSoT to avoid errors, and is honestly just easier to work with as a developer.
+4. What is middleware? ANSWER: Literally software that gets in the middle of redux. In our case, it allows us to use dispatch and creates a layer of logic we otherwise wouldn't have.
+5. Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`? ANSWER: Instead of returning an object, action creators can return functions and thus have logic.
+6. Which `react-redux` method links up our `components` with our `redux store`? ANSWER: connect
