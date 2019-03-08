@@ -51,7 +51,7 @@ export const addSmurf = smurf => dispatch => {
   if (!name || !age || !height) {
     // confirm all data needed is present before sending request
     axios
-      .put(url, smurf)
+      .post(url, smurf)
       .then(res => {
         // Dispatch smurf array to save in state
         dispatch({ type: FETCHED_SMURFS, payload: res.data });
@@ -65,4 +65,24 @@ export const addSmurf = smurf => dispatch => {
       `Missing Smurf info!:  Name: ${name}, Age: ${age}, Height: ${height}`
     );
   }
+};
+
+export const updateSmurf = updatedSmurf => dispatch => {
+  // Update isFetching state
+  dispatch({ type: UPDATING_SMURF });
+
+  // Get data from server to save to state
+  const url = `http://localhost:3333/smurfs/${smurf.id}`;
+
+  // confirm all data needed is present before sending request
+  axios
+    .put(url, updatedSmurf)
+    .then(res => {
+      // Dispatch smurf array to save in state
+      dispatch({ type: FETCHED_SMURFS, payload: res.data });
+    })
+    .catch(err => {
+      // oh noes, report err to state
+      dispatch({ type: FETCH_ERR, payload: err.data });
+    });
 };
