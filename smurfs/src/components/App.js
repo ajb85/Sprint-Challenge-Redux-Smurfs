@@ -10,7 +10,6 @@ import AddSmurf from "./AddSmurf";
  `How do I ensure that my component links the state to props?`
  */
 function App(props) {
-  console.log(props);
   useEffect(() => {
     // basically componentDidMount
     props.fetchSmurfs();
@@ -20,7 +19,7 @@ function App(props) {
     <div className="App">
       <AddSmurf />
       {props.smurfs.map(smurf => (
-        <div>
+        <div key={smurf.id}>
           <h2>
             {smurf.name}, {smurf.age}
           </h2>

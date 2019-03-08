@@ -9,7 +9,7 @@ function AddSmurf(props) {
 
   const onSubmitNewSmurf = e => {
     e.preventDefault();
-    props.addFriend({ name, age, height });
+    props.addSmurf({ name, age, height });
   };
   return (
     <form onSubmit={onSubmitNewSmurf}>
@@ -17,7 +17,7 @@ function AddSmurf(props) {
       <input type="text" value={name} onChange={e => updateName(e)} />
       <span>Age</span>
       <input type="number" value={age} onChange={e => updateAge(e)} />
-      <span>Email</span>
+      <span>Height</span>
       <input type="text" value={height} onChange={e => updateHeight(e)} />
       <button type="submit">Submit</button>
     </form>

@@ -18,7 +18,7 @@ import axios from "axios";
 
 export const FETCHING_SMURFS = "FETCHING_SMURFS";
 export const FETCHED_SMURFS = "FETCHED_SMURFS";
-export const ADDING_SMURF = "FETCHED_SMURFS";
+export const ADDING_SMURF = "ADDING_SMURF";
 export const UPDATING_SMURF = "UPDATING_SMURF";
 export const DELETING_SMURF = "DELETING_SMURF";
 export const FETCH_ERR = "FETCH_ERR";
@@ -42,14 +42,16 @@ export const fetchSmurfs = () => dispatch => {
 };
 
 export const addSmurf = smurf => dispatch => {
+  console.log("ADD SMURF: ", smurf);
   // Update isFetching state
   dispatch({ type: ADDING_SMURF });
 
   // Get data from server to save to state
   const url = "http://localhost:3333/smurfs";
   const { name, age, height } = smurf;
-  if (!name || !age || !height) {
+  if (name && age && height) {
     // confirm all data needed is present before sending request
+    console.log("POSTING SMURF");
     axios
       .post(url, smurf)
       .then(res => {
