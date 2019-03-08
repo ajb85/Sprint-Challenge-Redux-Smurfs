@@ -45,7 +45,18 @@ export default (state = initialState, action) => {
     case FETCHING_SMURFS:
       return { ...state, fetchingSmurfs: true };
     case FETCHED_SMURFS:
-      return { ...state, fetchingSmurfs: false, smurfs: [...action.payload] };
+      // I suppose technically multiple operations could be out at once
+      // I'm going to leave it like this because this app won't have that issue
+      // but it could result in bugs clearing all stats at once in future apps.
+      // Each section should clear itself and itself only to be safe
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        smurfs: [...action.payload]
+      };
     case ADDING_SMURF:
       return { ...state, addingSmurf: true };
     case UPDATING_SMURF:

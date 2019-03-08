@@ -23,7 +23,7 @@ export const UPDATING_SMURF = "UPDATING_SMURF";
 export const DELETING_SMURF = "DELETING_SMURF";
 export const FETCH_ERR = "FETCH_ERR";
 
-export const fetchingSmurfs = () => dispatch => {
+export const fetchSmurfs = () => dispatch => {
   // Update isFetching state
   dispatch({ type: FETCHING_SMURFS });
 
@@ -67,7 +67,7 @@ export const addSmurf = smurf => dispatch => {
   }
 };
 
-export const updateSmurf = updatedSmurf => dispatch => {
+export const updateSmurf = smurf => dispatch => {
   // Update isFetching state
   dispatch({ type: UPDATING_SMURF });
 
@@ -76,7 +76,27 @@ export const updateSmurf = updatedSmurf => dispatch => {
 
   // confirm all data needed is present before sending request
   axios
-    .put(url, updatedSmurf)
+    .put(url, smurf)
+    .then(res => {
+      // Dispatch smurf array to save in state
+      dispatch({ type: FETCHED_SMURFS, payload: res.data });
+    })
+    .catch(err => {
+      // oh noes, report err to state
+      dispatch({ type: FETCH_ERR, payload: err.data });
+    });
+};
+
+export const deleteSmurf = smurf => dispatch => {
+  // Update isFetching state
+  dispatch({ type: DELETING_SMURF });
+
+  // Get data from server to save to state
+  const url = `http://localhost:3333/smurfs/${smurf.id}`;
+
+  // confirm all data needed is present before sending request
+  axios
+    .delete(url)
     .then(res => {
       // Dispatch smurf array to save in state
       dispatch({ type: FETCHED_SMURFS, payload: res.data });
